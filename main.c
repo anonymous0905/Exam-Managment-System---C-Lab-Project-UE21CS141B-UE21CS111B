@@ -1,5 +1,6 @@
 #include <stdio.h>
+#include "A.h"
 int main()
 {
-    printf("hello world 1234");
+    func(5);
 }
