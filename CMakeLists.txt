@@ -7,4 +7,4 @@ include_directories(.)
 
 add_executable(Exam_Managment_System___C_Lab_Project
         main.c
-        main.h A.c A.h)
+        main.h)

@@ -68,13 +68,6 @@ build CMakeFiles/Exam_Managment_System___C_Lab_Project.dir/main.c.obj: C_COMPILE
   OBJECT_DIR = CMakeFiles\Exam_Managment_System___C_Lab_Project.dir
   OBJECT_FILE_DIR = CMakeFiles\Exam_Managment_System___C_Lab_Project.dir
 
-build CMakeFiles/Exam_Managment_System___C_Lab_Project.dir/A.c.obj: C_COMPILER__Exam_Managment_System___C_Lab_Project_Debug C$:/Users/shash/CLionProjects/Exam-Managment-System---C-Lab-Project/A.c || cmake_object_order_depends_target_Exam_Managment_System___C_Lab_Project
-  DEP_FILE = CMakeFiles\Exam_Managment_System___C_Lab_Project.dir\A.c.obj.d
-  FLAGS = -g -std=gnu11
-  INCLUDES = -IC:/Users/shash/CLionProjects/Exam-Managment-System---C-Lab-Project/.
-  OBJECT_DIR = CMakeFiles\Exam_Managment_System___C_Lab_Project.dir
-  OBJECT_FILE_DIR = CMakeFiles\Exam_Managment_System___C_Lab_Project.dir
-
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Exam_Managment_System___C_Lab_Project
@@ -83,7 +76,7 @@ build CMakeFiles/Exam_Managment_System___C_Lab_Project.dir/A.c.obj: C_COMPILER__
 #############################################
 # Link the executable Exam_Managment_System___C_Lab_Project.exe
 
-build Exam_Managment_System___C_Lab_Project.exe: C_EXECUTABLE_LINKER__Exam_Managment_System___C_Lab_Project_Debug CMakeFiles/Exam_Managment_System___C_Lab_Project.dir/main.c.obj CMakeFiles/Exam_Managment_System___C_Lab_Project.dir/A.c.obj
+build Exam_Managment_System___C_Lab_Project.exe: C_EXECUTABLE_LINKER__Exam_Managment_System___C_Lab_Project_Debug CMakeFiles/Exam_Managment_System___C_Lab_Project.dir/main.c.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Exam_Managment_System___C_Lab_Project.dir
