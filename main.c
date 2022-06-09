@@ -1,47 +1,31 @@
-// C program to Open a File,
-// Read from it, And Close the File
+/*#include "main.h"
+#include "execute.h"
+#include "add.h"
+#include "definition.h"
 
-# include <stdio.h>
-# include <string.h>
-
-int main( )
+int main()
 {
+    printf("Welcome to Student "
+           "database registration \n");
 
-    // Declare the file pointer
-    FILE *filePointer ;
+    printf("Enter 0 to exit \n");
+    printf("Enter 1 to add student"
+           " record \n");
 
-    // Declare the variable for the data to be read from file
-    char dataToBeRead[50];
+    scanf("%d", &option);
 
-    // Open the existing file GfgTest.c using fopen()
-    // in read mode using "r" attribute
-    filePointer = fopen("C:\\Users\\shash\\CLionProjects\\Exam-Managment-System---C-Lab-Project\\hello.txt", "r") ;
+    // Switch Statements
+    switch (option) {
+        case 0:
+            exit(0);
 
-    // Check if this filePointer is null
-    // which maybe if the file does not exist
-    if ( filePointer == NULL )
-    {
-        printf( "GfgTest.c file failed to open." ) ;
-    }
-    else
-    {
+        case 1:
+            add(s);
+            break;
 
-        printf("The file is now opened.\n") ;
-
-        // Read the dataToBeRead from the file
-        // using fgets() method
-        while( fgets ( dataToBeRead, 50, filePointer ) != NULL )
-        {
-
-            // Print the dataToBeRead
-            printf( "%s" , dataToBeRead ) ;
-        }
-
-        // Closing the file using fclose()
-        fclose(filePointer) ;
-
-        printf("Data successfully read from file GfgTest.c\n");
-        printf("The file is now closed.") ;
+        default:
+            printf("Only enter 0 or 1");
+            execute();
     }
     return 0;
-}
+}*/

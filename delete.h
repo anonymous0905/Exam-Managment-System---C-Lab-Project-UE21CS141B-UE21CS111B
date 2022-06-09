@@ -1,0 +1,1 @@
+//void delete (struct student s[]);
