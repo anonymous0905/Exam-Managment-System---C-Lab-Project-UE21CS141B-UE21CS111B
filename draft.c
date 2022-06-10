@@ -5,7 +5,7 @@ int option = 0;
 int i = 0;
 int n = 0;
 int j = 0;
-float present = 75.00;
+float present = 85.00;
 char fee = 'P';
 float tdays = 1;
 
@@ -157,7 +157,7 @@ void print_student(struct student s[])
 
 int main()
 {
-    printf("Welcome to Student database registration \n");
+    printf("Welcome exam management system \n");
 
     printf("Enter 0 to exit \n");
     printf("Enter 1 to add student record \n");
