@@ -75,7 +75,8 @@
 				6,
 				8,
 				10,
-				13
+				13,
+				14
 			]
 		}
 	],
@@ -118,7 +119,8 @@
 				6,
 				8,
 				10,
-				13
+				13,
+				14
 			]
 		},
 		{
@@ -212,6 +214,12 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "draft.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "draft1.c",
 			"sourceGroupIndex" : 0
 		}
 	],

@@ -1,1 +1,0 @@
-//void eligibleStudents(struct student s[]);
