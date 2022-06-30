@@ -3,12 +3,14 @@
 #include <string.h>
 #include <stdbool.h>
 
+
 int option = 0;//choice
 int i =0;//counter
 int j=0;//counter
 float present = 75.0;//attendance percentage required
 int twdays = 1;//total number of working days
 int roomallotment = 1;
+
 
 typedef struct student {
     char name[40];//student name
@@ -20,6 +22,8 @@ typedef struct student {
     char room_allotment[10];//exam room allotment
     float attend;//attendance percentage
 }std;
+
+
 int line_check();//to count number of lines in file
 void print_students(std s[], int n);// to print details of all students on terminal
 void eligible_students(std s[], int n);//to output list of all eligible students in a file
@@ -38,7 +42,6 @@ int main()
     printf("Enter total number of working days : -\n");
     scanf("%d",&twdays);//inputting total number of working days
     int n = line_check();//to check no of lines in csv file
-    printf("%d",n);
     if (n==-1)
     {
         exit(0);
@@ -58,7 +61,8 @@ int main()
 
     char fl[7][30];
     int r = 0;
-    while(fgets(a,500,fr1))
+
+    while(fgets(a,500,fr1))//reading first line and storing it in a array;
     {
         item1 = strtok(a, ",");
         strcpy(fl[r],item1);
@@ -79,8 +83,10 @@ int main()
         strcpy(fl[r],item1);
         break;
     }
+
     int k = 0;//counter
     //printf("Check");
+
     while(fgets(a,500,fr1))//inputting data to array of struct student
     {
         //printf("Check");
@@ -106,10 +112,11 @@ int main()
         //printf("%d\n",days);
         s[k].attend = ((float)days/twdays)*100;
         //printf("%f\n",s[k].attend);
-        strcpy(s[k].room_allotment," ");
+        strcpy(s[k].room_allotment,"Not Assigned");
         k++;
     }
     fclose(fr1);//file close
+
     while(true)
     {
         int m2;
@@ -124,6 +131,7 @@ int main()
         printf("8. Update Exam Eligibility\n");
         printf("9. Update All changes to File\n");
         scanf("%d",&option);
+
         switch (option) {
 
             case 1:
@@ -177,7 +185,7 @@ void update_eligibility()
     if(compare(inp_psd,"admin1234")==0)
     {
         printf("Enter New Attendance Criteria\n");
-        scanf("%f",&present);
+        scanf("%f",&present);//updating attendance percentage required
         printf("Successful\n");
     }
     else
@@ -188,11 +196,14 @@ void update_eligibility()
 
 void write_tofile(std s[], char fl[][30], int n)
 {
-    FILE *fr4 = fopen("student1.csv","w+");
-    fprintf(fr4,"%s,%s,%s,%s,%s,%s",fl[0],fl[1],fl[2],fl[3],fl[4],fl[5]);
+    FILE *fr4 = fopen("student.csv","w+");
+
+    fprintf(fr4,"%s,%s,%s,%s,%s,%s",fl[0],fl[1],fl[2],fl[3],fl[4],fl[5]);//printing the first line to file
+
     for(i=0; i<n; i++)
     {
         fprintf(fr4,"%s,%s,%s,%d,%d,%d\n",s[i].name,s[i].srn, s[i].class, s[i].fee_total, s[i].fee_paid,s[i].days);
+        //printing the student details to file (seperated by a ',')
     }
     fclose(fr4);
 }
@@ -200,23 +211,25 @@ void write_tofile(std s[], char fl[][30], int n)
 void update_attendance(std s[], int n)
 {
     char inp_srn[30];
-    printf("Enter SRN of Student");
+    printf("Enter SRN of Student\n");
     scanf("%s",&inp_srn);
     int flag = 0;
+
     for(int i=1; i<n; i++)
     {
-        if (compare(s[i].srn, inp_srn) == 0)
+        if (compare(s[i].srn, inp_srn) == 0)//if srn is found
         {
             printf("Old Attendance %d Days\n",s[i].days);
-            printf("Enter New Attendance \n");
+            printf("Enter New Attendance (Number of days Present) \n");
             scanf("%d",&s[i].days);
             printf("Enter Administrator Password to Confirm\n");
             char inp_psd[30];
-            scanf("%s",&inp_srn);
+            scanf("%s",&inp_psd);
             if(compare(inp_psd,"admin1234")==0)
             {
                 s[i].attend = ((float)s[i].days/twdays)*100;
                 printf("Successful\n");
+                flag =1;
                 break;
             }
             else
@@ -226,6 +239,11 @@ void update_attendance(std s[], int n)
 
         }
     }
+
+    if(flag!=1)
+    {
+        printf("SRN Not found please try again\n");
+    }
 }
 
 void admit_card_generation(std s[], int n)
@@ -234,29 +252,42 @@ void admit_card_generation(std s[], int n)
     {
         room_allotment(s,n);
     }
+
     FILE *fr3 = fopen("Admit_Card.txt","w+");
-    printf("Enter Number of Courses\n");
-    int nc = 0;
-    scanf("%d",&nc);
-    char cc[n][30];
-    for(i =0; i<nc;i++)
+
+    if(fr3 == NULL)
     {
-        printf("Enter Course Code\n");
-        scanf("%s",&cc[i]);
+        printf("Error Opening File\n");
     }
-    for(j =0; j<n; j++)
+
+    else
     {
-        if((s[j].fee_total==s[j].fee_paid) && s[j].attend>=present)
+        printf("Enter Number of Courses\n");
+        int nc = 0;
+        scanf("%d",&nc);
+        char cc[n][30];
+        for(i =0; i<nc;i++)
         {
-            fprintf(fr3, "Name:- %s \nSRN:- %s \nClass:- %s \nAttendance:- %f \nRoom Number - %s\n\n", s[j].name,s[j].srn, s[j].class,  s[j].attend,s[j].room_allotment);
-            fprintf(fr3,"Courses Enrolled :-\n");
-            for(i=0; i<nc; i++)
-            {
-                fprintf(fr3, "%s\n", cc[i]);
-            }
-            fprintf(fr3,"\n-----------------------------------------------------------------------------\n");
+            printf("Enter Course Code\n");
+            scanf("%s",&cc[i]);
         }
+        for(j =0; j<n; j++)
+        {
+            if((s[j].fee_total==s[j].fee_paid) && s[j].attend>=present)
+            {
+                fprintf(fr3, "Name:- %s \nSRN:- %s \nClass:- %s \nAttendance:- %.2f \nRoom Number - %s\n\n", s[j].name,s[j].srn, s[j].class,  s[j].attend,s[j].room_allotment);
+                fprintf(fr3,"Courses Enrolled :-\n");
+                for(i=0; i<nc; i++)
+                {
+                    fprintf(fr3, "%s\n", cc[i]);
+                }
+                fprintf(fr3,"\n-----------------------------------------------------------------------------\n\n");
+            }
+        }
+        printf("Admit Card Generated Successfully\n");
+
     }
+
     fclose(fr3);
 }
 
@@ -266,6 +297,7 @@ void room_allotment(std s[], int n)
     int room1[20];
     int cpy = n;
     int g = 0;
+
     while(cpy>0)
     {
         printf("Enter Room Number\n");
@@ -277,6 +309,7 @@ void room_allotment(std s[], int n)
         printf("\n");
     }
     //printf("%d",g);
+
     int d = 0;
     for(i=0; i<n; i++)
     {
@@ -286,11 +319,16 @@ void room_allotment(std s[], int n)
         }
         if(room1[d]>0)
         {
-            strcpy(s[i].room_allotment,room[d]);
-            room1[d] -= 1;
+            if((s[i].fee_total==s[i].fee_paid) && s[i].attend>=present)
+            {
+                strcpy(s[i].room_allotment,room[d]);
+                room1[d] -= 1;
+            }
+
         }
     }
     roomallotment = 0;
+    printf("Room allotment for Qualified Students Successful\n");
 
 
 }
@@ -298,8 +336,10 @@ void room_allotment(std s[], int n)
 void student_records(std s[], int n)
 {
     char inp_srn[30];
-    printf("Enter SRN of Student");
+    printf("Enter SRN of Student\n");
     scanf("%s",&inp_srn);
+    int flag = 0;
+
     for(int i=1; i<n; i++)
     {
         if(compare(s[i].srn,inp_srn)==0)
@@ -310,10 +350,16 @@ void student_records(std s[], int n)
             fprintf(stdout, "Fee to be paid - %d\n", s[i].fee_total);
             fprintf(stdout, "Fee Paid - %d\n", s[i].fee_paid);
             fprintf(stdout, "Number of days present - %d\n", s[i].days);
-            fprintf(stdout, "Attendance Percentage - %f\n", s[i].attend);
+            fprintf(stdout, "Attendance Percentage - %.2f\n", s[i].attend);
             fprintf(stdout, "-------------------------------------------\n");
+            flag = 1;
             break;
         }
+
+    }
+    if(flag!=1)
+    {
+        printf("SRN not Found Please try again\n");
     }
 }
 
@@ -322,6 +368,8 @@ int delete_records(std s[], int n)
     char inp_srn[30];
     printf("Enter SRN of student\n");
     scanf("%s",&inp_srn);
+    int flag = 0;
+
     for(i =0; i<n; i++)
     {
         if(compare(s[i].srn, inp_srn)==0)
@@ -344,7 +392,9 @@ int delete_records(std s[], int n)
                 }
                 printf("Student Record deleted\n");
                 n= n-1;
+                flag = 1;
                 return n;
+
             }
             else
             {
@@ -352,7 +402,13 @@ int delete_records(std s[], int n)
                 return n;
             }
         }
+
     }
+    if(flag!=1)
+    {
+        printf("SRN not Found Please Try Again\n");
+    }
+
 }
 
 int compare(char a[],char b[])
@@ -385,9 +441,11 @@ void eligible_students(std s[], int n)
     {
         if((s[j].fee_total==s[j].fee_paid) && s[j].attend>=present)
         {
-            fprintf(fr2, "Name:- %s \nSRN:- %s \nClass:- %s \nAttendance:- %f \n\n", s[j].name,s[j].srn, s[j].class,  s[j].attend);
+
+            fprintf(fr2, "Name:- %s \nSRN:- %s \nClass:- %s \nAttendance:- %.2f \n\n", s[j].name,s[j].srn, s[j].class,  s[j].attend);
         }
     }
+
     fclose(fr2);
 }
 
@@ -402,11 +460,13 @@ void print_students(std s[], int n)
         fprintf(stdout, "Fee to be paid - %d\n", s[i].fee_total);
         fprintf(stdout, "Fee Paid - %d\n", s[i].fee_paid);
         fprintf(stdout, "Number of days present - %d\n", s[i].days);
-        fprintf(stdout, "Attendance Percentage - %f\n", s[i].attend);
+        fprintf(stdout, "Attendance Percentage - %.2f\n", s[i].attend);
         fprintf(stdout, "Room Allotment - %s\n", s[i].room_allotment);
         fprintf(stdout, "-------------------------------------------");
         fprintf(stdout, "\n");
+
     }
+
 }
 
 int line_check()
@@ -417,13 +477,16 @@ int line_check()
         printf("Error opening file");
         return -1;
     }
+
     char a[500];
     fgets(a,200,fr);
     int count =0;
+
     while(fgets(a,200,fr))
     {
         count+=1;
     }
+
     fclose(fr);
     return count;
 }
